@@ -1,14 +1,21 @@
-import Button from "../Button/Button"
-import { useState,useEffect } from "react";
+import Button from "../Button/Button";
+import { useState } from "react";
 
-const Search = ({ data }) => {
+const Search = ({ data, gp }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event) => {
     const newSearchTerm = event.target.value.toLowerCase();
     setSearchTerm(newSearchTerm);
 
+    const filteredProducts = data.filter((product) => {
+      const productName = product.name.toLowerCase();
+      return productName.includes(newSearchTerm);
+    });
+
    
+
+    gp(filteredProducts);
   };
 
   return (
@@ -23,9 +30,10 @@ const Search = ({ data }) => {
       <Button
         className="rounded-2xl text-xl bg-gold font-bold text-white px-14 py-3"
         children="Search"
+        //  onClick={handleSearchChange}
       />
     </div>
   );
 };
 
-export default Search
+export default Search;
